@@ -58,7 +58,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .nav{position:sticky;top:0;z-index:50;background:rgba(8,19,28,.72);-webkit-backdrop-filter:saturate(1.6) blur(18px);backdrop-filter:saturate(1.6) blur(18px);border-bottom:1px solid rgba(255,255,255,.07);color:var(--nightInk)}
 .nav>.wrap{display:flex;align-items:center;gap:1rem;height:3.6rem}
 .brand{display:flex;align-items:center;gap:.6rem;color:#fff;text-decoration:none;margin-right:auto}
-.brand svg{width:26px;height:26px}
+.brand svg,.brand img{width:26px;height:26px}
 .brand b{font:400 1.35rem/1 var(--serif);letter-spacing:-.01em}
 .navlinks{display:none;align-items:center;gap:.2rem}
 .navlinks a,.navlinks>button{padding:.5rem .8rem;border-radius:999px;border:0;background:none;color:var(--nightInk);text-decoration:none;font-size:.92rem}
@@ -341,7 +341,7 @@ html.still .rv,html.still .res{opacity:1!important;transform:none!important}
 <nav class="nav" aria-label="Main">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="Hiero Clinical, top of page">
-      <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#0F2C44"/><rect x="16" y="14" width="8" height="36" rx="4" fill="#fff"/><rect x="40" y="14" width="8" height="36" rx="4" fill="#fff"/><rect x="26.5" y="20" width="11" height="3.6" rx="1.8" fill="#fff" opacity=".45"/><rect x="20" y="28.5" width="24" height="7" rx="3.5" fill="#2BC4D6"/><rect x="26.5" y="40" width="7" height="3.6" rx="1.8" fill="#fff" opacity=".45"/></svg>
+      <img src="icons/hiero-icon.svg" alt="" width="26" height="26">
       <b>Hiero</b>
     </a>
     <div class="navlinks">

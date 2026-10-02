@@ -302,7 +302,16 @@ input[type=range]{width:100%;margin:.7rem 0 0;accent-color:var(--blue);height:1.
 /* contact + footer */
 .contact{text-align:center;background:radial-gradient(40rem 20rem at 50% 0,rgba(43,196,214,.18),transparent 70%),linear-gradient(180deg,var(--night2),var(--night));color:var(--nightInk)}
 .contact .h2{color:#fff}.contact .sub{margin-left:auto;margin-right:auto}
-.contact .btn{margin-top:2rem;font-size:1.05rem;padding:1rem 1.5rem}
+.contact .cform{margin:2rem auto 0;max-width:28rem;text-align:left;display:grid;gap:.85rem}
+.contact .cform label{display:grid;gap:.35rem;font:600 .88rem/1.3 var(--sans);color:var(--nightInk)}
+.contact .cform .opt{font-weight:400;color:var(--nightDim)}
+.contact .cform input,.contact .cform textarea{width:100%;margin:0;padding:.8rem .95rem;border:1px solid var(--rule);border-radius:14px;background:var(--paper);color:var(--ink);font:400 1rem/1.45 var(--sans)}
+.contact .cform textarea{resize:vertical;min-height:7.5rem}
+.contact .cform input:focus,.contact .cform textarea:focus{outline:2px solid var(--cyan);outline-offset:2px}
+.contact .cform .btn{justify-self:center;margin-top:.4rem;font-size:1.05rem;padding:1rem 1.5rem}
+.contact .cform .btn:disabled{opacity:.55;cursor:default;transform:none}
+.contact .cerr{margin:0;color:#F6C7C4;font-size:.95rem;line-height:1.45}
+.contact .cok{margin:2rem auto 0;max-width:28rem;font:600 1.15rem/1.45 var(--sans);color:#fff}
 footer{background:var(--night);color:var(--nightDim);border-top:1px solid rgba(255,255,255,.06);font-size:.88rem}
 footer .wrap{display:flex;flex-wrap:wrap;gap:.6rem 1.6rem;align-items:center;padding-top:1.6rem;padding-bottom:max(2rem,env(safe-area-inset-bottom))}
 footer .name{font:400 1.1rem/1 var(--serif);color:#fff}footer a{color:var(--nightDim)}
@@ -339,7 +348,7 @@ html.still .rv,html.still .res{opacity:1!important;transform:none!important}
       <button type="button" id="featBtn" aria-expanded="false" aria-controls="featMenu">Features<span class="chev" aria-hidden="true">▼</span></button>
       <a href="#limits">Safety</a>
       <a href="#faq">Questions</a>
-      <a class="navcta" href="mailto:hello@hieroclinical.com">Contact</a>
+      <a class="navcta" href="#contact">Contact</a>
     </div>
     <button class="burger" type="button" id="burger" aria-expanded="false" aria-controls="featMenu" aria-label="Open menu"><i></i></button>
   </div>
@@ -354,7 +363,7 @@ html.still .rv,html.still .res{opacity:1!important;transform:none!important}
       <div class="mobile-extra">
         <a href="#limits"><span><b>Safety</b><small>What Hiero is not</small></span></a>
         <a href="#faq"><span><b>Questions</b><small>Offline use, content control, patient data</small></span></a>
-        <a href="mailto:hello@hieroclinical.com"><span><b>Contact</b><small>hello@hieroclinical.com</small></span></a>
+        <a href="#contact"><span><b>Contact</b><small>hello@hieroclinical.com</small></span></a>
       </div>
     </div>
   </div>
@@ -371,7 +380,7 @@ html.still .rv,html.still .res{opacity:1!important;transform:none!important}
       <p class="who">For flight nurses, critical-care paramedics, and the medical director who owns the protocol. Hiero opens the program’s written guideline at the moment it is needed: on the ramp, in the back of the aircraft, or in the office where the protocol is written.</p>
       <div class="ctas">
         <a class="btn primary" href="#protocols">Explore Hiero <span aria-hidden="true">↓</span></a>
-        <a class="btn ghost" href="mailto:hello@hieroclinical.com">Talk with us</a>
+        <a class="btn ghost" href="#contact">Talk with us</a>
       </div>
       <ul class="facts"><li>Works without a signal</li><li>Your program’s text, unchanged</li><li>Android and iPhone</li></ul>
     </div>
@@ -677,7 +686,7 @@ html.still .rv,html.still .res{opacity:1!important;transform:none!important}
       <details><summary>Does Hiero invent doses or fill gaps in a protocol?</summary><div class="ans">No. Hiero calculates only from doses written in the program’s protocol and applies that protocol’s maximums. If the protocol is silent, Hiero says the program has no matching text.</div></details>
       <details><summary>What patient information does a crew enter?</summary><div class="ans">Age, weight and height drive the arithmetic. Hiero is built so crews do not need to enter names or other identifiers to use it.</div></details>
       <details><summary>Which phones does it run on?</summary><div class="ans">Android and iPhone, with the same program content on both.</div></details>
-      <details><summary>How does a program get started?</summary><div class="ans">Write to us at <a href="mailto:hello@hieroclinical.com">hello@hieroclinical.com</a>. Tell us how your crews use your protocols today and which devices you fly with.</div></details>
+      <details><summary>How does a program get started?</summary><div class="ans"><a href="#contact">Use the form</a>. You can also write hello@hieroclinical.com. Tell us how your crews use your protocols today and which devices you fly with.</div></details>
     </div>
   </div>
 </section>
@@ -688,12 +697,20 @@ html.still .rv,html.still .res{opacity:1!important;transform:none!important}
     <p class="eyebrow">Contact</p>
     <h2 class="h2" id="cTitle">Bring your protocols.<br>We’ll show you Hiero with them.</h2>
     <p class="sub">If you run a transport program or direct one, write to us.</p>
-    <a class="btn primary" href="mailto:hello@hieroclinical.com">hello@hieroclinical.com</a>
+    <form class="cform" id="contactForm" action="/api/contact" method="post">
+      <label>Name<input name="name" type="text" autocomplete="name" required></label>
+      <label>Work email<input name="email" type="email" autocomplete="email" inputmode="email" required></label>
+      <label>Program <span class="opt">(optional)</span><input name="program" type="text" autocomplete="organization"></label>
+      <label>Note<textarea name="note" rows="5" required></textarea></label>
+      <p class="cerr" id="contactErr" role="alert" hidden>That didn’t send. Write hello@hieroclinical.com if it keeps failing.</p>
+      <button class="btn primary" type="submit">Submit</button>
+    </form>
+    <p class="cok" id="contactOk" hidden>Received. We’ll write you at the email you entered.</p>
   </div>
 </section>
 </main>
 
-<footer><div class="wrap"><span class="name">Hiero Clinical</span><a href="mailto:hello@hieroclinical.com">hello@hieroclinical.com</a><span>© 2026</span></div></footer>
+<footer><div class="wrap"><span class="name">Hiero Clinical</span><a href="#contact">Contact</a><span>hello@hieroclinical.com</span><span>© 2026</span></div></footer>
 
 <script>
 (function () {
@@ -917,6 +934,34 @@ html.still .rv,html.still .res{opacity:1!important;transform:none!important}
     var first = $$('.man:not(.hide)', grid)[0]; if (first && +first.dataset.i !== sel) showMan(+first.dataset.i);
   });
   showMan(0);
+
+  /* ---- contact form: same-site POST, no navigation ---- */
+  var contactForm = $('#contactForm');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var err = $('#contactErr');
+      var btn = contactForm.querySelector('button[type="submit"]');
+      err.hidden = true;
+      btn.disabled = true;
+      var data = new FormData(contactForm);
+      fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: data
+      }).then(function (res) {
+        var type = (res.headers.get('content-type') || '').toLowerCase();
+        if (!res.ok || type.indexOf('text/html') !== -1) throw new Error('fail');
+        var ok = $('#contactOk');
+        contactForm.remove();
+        ok.hidden = false;
+      }).catch(function () {
+        err.hidden = false;
+        btn.disabled = false;
+      });
+    });
+  }
+
 })();
 </script>
 </body>

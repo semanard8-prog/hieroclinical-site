@@ -1,0 +1,919 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hiero Clinical — your program’s patient-care guidelines, on the device, for the crew</title>
+<meta name="description" content="Hiero is a phone app for critical-care transport crews. A program loads its own patient-care guidelines; the crew reads that text, the doses written in it, and its vent, oxygen and device references at the bedside.">
+<link rel="canonical" href="https://hieroclinical.com/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://hieroclinical.com/">
+<meta property="og:title" content="Hiero Clinical">
+<meta property="og:description" content="Your program’s patient-care guidelines, on the device, for the crew.">
+<meta name="theme-color" content="#0B1B28">
+<script>try{document.documentElement.classList.add("js");if(matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("still")}catch(e){}</script>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230F2C44'/%3E%3Crect x='16' y='14' width='8' height='36' rx='4' fill='%23fff'/%3E%3Crect x='40' y='14' width='8' height='36' rx='4' fill='%23fff'/%3E%3Crect x='20' y='28.5' width='24' height='7' rx='3.5' fill='%232BC4D6'/%3E%3C/svg%3E">
+<style>
+/* =====================================================================
+   Hiero Clinical — hieroclinical.com
+   One file. System fonts. No trackers, no third-party requests.
+   ===================================================================== */
+:root{
+  --paper:#F7F5F0; --paper2:#EFECE4; --white:#FFFEFB; --rule:#DED9CE;
+  --ink:#15181C; --ink2:#4A4F57; --ink3:#6B717B;
+  --blue:#0F2C44; --blue2:#1A4468; --cyan:#2BC4D6; --cyanD:#0E7A87;
+  --night:#08131C; --night2:#0D1F2D; --nightLine:#1C3344; --nightInk:#E8EFF3; --nightDim:#93A8B6;
+  --vfr:#3FBF7F; --mvfr:#4C8DF6; --ifr:#E5484D; --lifr:#C054D6;
+  --card:#C32C63; --air:#0080AD; --proc:#00815B; --ped:#A33B72; --code:#E5484D; --vent:#0091FF; --calc:#12A594; --ino:#8E4EC6; --mcs:#F76B15; --ops:#5B5BD6;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --ease:cubic-bezier(.2,.75,.2,1);
+  --wrap:72rem;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:4.5rem}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 1.0625rem/1.6 var(--sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:var(--blue);text-underline-offset:.2em;text-decoration-thickness:1px}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--cyanD);outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:-999px;top:0}.skip:focus{left:1rem;top:1rem;z-index:100;background:#fff;padding:.5rem .8rem;border-radius:8px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 1.25rem}
+.eyebrow{margin:0;font:600 .78rem/1.2 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+.h2{margin:.7rem 0 0;font:650 clamp(2rem,6.4vw,3.4rem)/1.04 var(--sans);letter-spacing:-.03em}
+.sub{margin:1rem 0 0;max-width:38rem;font-size:clamp(1.05rem,2.4vw,1.25rem);line-height:1.55;color:var(--ink2)}
+.dark .eyebrow{color:var(--cyan)} .dark .sub{color:var(--nightDim)}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 1.25rem;border-radius:999px;border:0;font:600 1rem/1 var(--sans);text-decoration:none;transition:transform .2s var(--ease),background .2s,box-shadow .2s}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--cyan);color:#062029;box-shadow:0 10px 30px -12px rgba(43,196,214,.7)}
+.btn.primary:hover{background:#4FD3E2}
+.btn.ghost{color:var(--nightInk);background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
+.btn.ghost:hover{background:rgba(255,255,255,.14)}
+.tag{display:inline-block;padding:.2rem .5rem;border-radius:999px;font:700 .66rem/1.2 var(--sans);letter-spacing:.08em;text-transform:uppercase}
+
+/* ---------- navigation ---------- */
+.nav{position:sticky;top:0;z-index:50;background:rgba(8,19,28,.72);-webkit-backdrop-filter:saturate(1.6) blur(18px);backdrop-filter:saturate(1.6) blur(18px);border-bottom:1px solid rgba(255,255,255,.07);color:var(--nightInk)}
+.nav>.wrap{display:flex;align-items:center;gap:1rem;height:3.6rem}
+.brand{display:flex;align-items:center;gap:.6rem;color:#fff;text-decoration:none;margin-right:auto}
+.brand svg{width:26px;height:26px}
+.brand b{font:400 1.35rem/1 var(--serif);letter-spacing:-.01em}
+.navlinks{display:none;align-items:center;gap:.2rem}
+.navlinks a,.navlinks>button{padding:.5rem .8rem;border-radius:999px;border:0;background:none;color:var(--nightInk);text-decoration:none;font-size:.92rem}
+.navlinks a:hover,.navlinks>button:hover,.navlinks>button[aria-expanded=true]{background:rgba(255,255,255,.08)}
+.navlinks .chev{display:inline-block;margin-left:.35rem;transition:transform .25s var(--ease);font-size:.6em;opacity:.7}
+[aria-expanded=true] .chev{transform:rotate(180deg)}
+.navlinks .navcta{padding:.55rem .95rem;font-size:.9rem;background:var(--cyan);color:#062029;font-weight:600}
+.navlinks .navcta:hover{background:#4FD3E2}
+.menu{position:absolute;left:0;right:0;top:100%;max-height:calc(100vh - 3.6rem);overflow-y:auto;background:#0A1823;-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.08);
+  opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .22s var(--ease),transform .22s var(--ease),visibility 0s .22s}
+.menu.open{opacity:1;visibility:visible;transform:none;transition:opacity .22s var(--ease),transform .22s var(--ease)}
+.menu .wrap{display:grid;gap:.3rem;padding-top:1rem;padding-bottom:1.3rem}
+.menu a{display:flex;gap:.85rem;align-items:flex-start;padding:.75rem .8rem;border-radius:14px;color:var(--nightInk);text-decoration:none}
+.menu a:hover{background:rgba(255,255,255,.06)}
+.menu .mi{flex:0 0 auto;width:2.2rem;height:2.2rem;border-radius:.7rem;display:grid;place-items:center;color:#fff;font:800 .78rem/1 var(--sans)}
+.menu .mi svg{width:1.15rem;height:1.15rem}
+.menu b{display:block;font-weight:600;font-size:.98rem}.menu small{display:block;color:var(--nightDim);font-size:.85rem;line-height:1.35}
+.burger{width:2.6rem;height:2.6rem;border-radius:999px;border:0;background:rgba(255,255,255,.08);display:grid;place-items:center}
+.burger i,.burger i::before,.burger i::after{display:block;width:16px;height:1.6px;background:#fff;border-radius:2px;position:relative;transition:transform .25s var(--ease),background .2s}
+.burger i::before,.burger i::after{content:"";position:absolute;left:0}.burger i::before{top:-5px}.burger i::after{top:5px}
+.burger[aria-expanded=true] i{background:transparent}.burger[aria-expanded=true] i::before{transform:translateY(5px) rotate(45deg)}.burger[aria-expanded=true] i::after{transform:translateY(-5px) rotate(-45deg)}
+.mobile-extra{display:grid;gap:.3rem;padding-top:.6rem;border-top:1px solid rgba(255,255,255,.08);margin-top:.4rem}
+@media(min-width:60rem){
+  .navlinks{display:flex}.burger{display:none}
+  .menu .wrap{grid-template-columns:repeat(3,1fr);gap:.4rem 1rem}.mobile-extra{display:none}
+}
+
+/* ---------- hero ---------- */
+.hero{position:relative;overflow:hidden;background:radial-gradient(60rem 30rem at 85% -10%,rgba(43,196,214,.22),transparent 60%),radial-gradient(50rem 30rem at -10% 110%,rgba(26,68,104,.65),transparent 60%),linear-gradient(180deg,var(--night),var(--night2));color:var(--nightInk)}
+.hero .wrap{display:grid;gap:3rem;padding-top:3.5rem;padding-bottom:4.5rem}
+.hero .eyebrow{color:var(--cyan)}
+.hero h1{margin:1.1rem 0 0;font:400 clamp(4.6rem,19vw,9rem)/.88 var(--serif);letter-spacing:-.025em;color:#fff}
+.lead{position:relative;margin:1.4rem 0 0;max-width:30rem;padding-bottom:1.1rem;font:600 clamp(1.35rem,4.4vw,1.9rem)/1.3 var(--sans);letter-spacing:-.015em}
+.lead::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:6rem;background:var(--cyan);transform-origin:left}
+.hero .who{margin:1.2rem 0 0;max-width:31rem;color:var(--nightDim)}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:2rem}
+.hero .facts{display:flex;flex-wrap:wrap;gap:.5rem 1.2rem;margin:2.2rem 0 0;padding:0;list-style:none;color:var(--nightDim);font-size:.88rem}
+.hero .facts li::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--cyan);margin-right:.5rem;vertical-align:middle}
+@media (min-width:60rem){.hero .wrap{grid-template-columns:1.1fr .9fr;align-items:center;padding-top:5rem;padding-bottom:6rem}}
+
+/* phone */
+.phone{position:relative;justify-self:center;width:min(19.5rem,84vw);aspect-ratio:9/19;border-radius:2.9rem;padding:.7rem;background:linear-gradient(160deg,#2B3A46,#0E171F);box-shadow:0 0 0 1px rgba(255,255,255,.08),0 40px 80px -30px rgba(0,0,0,.8),0 0 120px -40px rgba(43,196,214,.45)}
+.screen{position:relative;height:100%;border-radius:2.25rem;overflow:hidden;background:#F4F6F8;color:#0F1E2B;font-size:.78rem}
+.island{position:absolute;top:.55rem;left:50%;transform:translateX(-50%);width:5.6rem;height:1.4rem;border-radius:1rem;background:#05090C;z-index:3}
+.sbar{height:2.6rem;background:#081218}
+.ptstrip{display:grid;grid-template-columns:repeat(3,1fr);gap:.35rem;padding:.55rem .6rem;background:#fff;border-bottom:1px solid #E3E8EC}
+.ptstrip div{border:1px solid #E3E8EC;border-radius:.55rem;padding:.3rem .4rem;background:#F6F8F9}
+.ptstrip small{display:block;font:700 .48rem/1 var(--sans);letter-spacing:.1em;color:#6A7C87}
+.ptstrip b{font-size:.78rem}
+.ssearch{margin:.65rem .6rem 0;display:flex;align-items:center;gap:.45rem;padding:.45rem .5rem;border-radius:.85rem;background:#fff;border:1.5px solid #8FD9E3;box-shadow:0 8px 20px -14px rgba(14,122,135,.8)}
+.ssearch i{flex:0 0 auto;width:1.45rem;height:1.45rem;border-radius:.5rem;background:linear-gradient(160deg,#1A4468,#0F2C44);display:grid;place-items:center}
+.ssearch i svg{width:.75rem;height:.75rem}
+.ssearch span{font-weight:600;min-height:1.1em}
+#typed::after{content:"";display:inline-block;width:1.5px;height:.95em;background:#0E7A87;margin-left:1px;vertical-align:-2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.results{padding:.55rem .6rem;display:grid;gap:.45rem}
+.res{background:#fff;border:1px solid #E3E8EC;border-radius:.8rem;padding:.55rem .6rem;opacity:0;transform:translateY(6px);transition:opacity .35s var(--ease),transform .35s var(--ease)}
+.res.in{opacity:1;transform:none}
+.res .k{display:flex;align-items:center;gap:.35rem;font:700 .52rem/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:#6A7C87}
+.res .k i{width:.45rem;height:.45rem;border-radius:50%}
+.res b{display:block;margin-top:.3rem;font-size:.8rem}
+.res p{margin:.2rem 0 0;color:#4A5A64;font-size:.68rem;line-height:1.35}
+.res .hl{margin-top:.35rem;padding:.3rem .4rem;border-left:2px solid #2BC4D6;background:#EFF8F9;border-radius:0 .4rem .4rem 0;font-size:.68rem}
+.demo-badge{position:absolute;right:.7rem;bottom:3.6rem;z-index:2;background:#FFF4E0;color:#7A4A00;border:1px solid #F0D3A4;border-radius:999px;padding:.15rem .45rem;font:700 .5rem/1.2 var(--sans);letter-spacing:.06em}
+.tabbar{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-around;padding:.45rem .3rem .9rem;background:rgba(255,255,255,.88);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-top:1px solid #E3E8EC;font-size:.55rem;color:#6A7C87}
+.tabbar span{display:grid;justify-items:center;gap:.15rem}.tabbar span:first-child{color:#0E7A87;font-weight:700}
+.tabbar i{width:1rem;height:1rem;border-radius:.3rem;background:currentColor;opacity:.25}.tabbar span:first-child i{opacity:.9}
+
+/* ---------- generic sections ---------- */
+.band{padding:5.5rem 0}
+.dark{background:linear-gradient(180deg,var(--night2),var(--night));color:var(--nightInk)}
+.paper2{background:var(--paper2)}
+.split{display:grid;gap:2.5rem;align-items:center}
+@media(min-width:60rem){.split{grid-template-columns:1fr 1fr;gap:4.5rem}.split.flip>:first-child{order:2}}
+.fine{margin:.9rem 0 0;font-size:.82rem;color:var(--ink3)}
+
+/* three principles */
+.principles{display:grid;gap:1rem;margin-top:2.6rem}
+.pcard{background:var(--white);border:1px solid var(--rule);border-radius:1.4rem;padding:1.6rem;transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.pcard:hover{transform:translateY(-4px);box-shadow:0 24px 50px -30px rgba(15,44,68,.35)}
+.ic{width:2.6rem;height:2.6rem;border-radius:.85rem;display:grid;place-items:center;color:#fff;font:800 .8rem/1 var(--sans)}
+.ic svg{width:1.3rem;height:1.3rem}
+.pcard h3{margin:1.1rem 0 0;font:650 1.2rem/1.3 var(--sans);letter-spacing:-.01em}
+.pcard p{margin:.55rem 0 0;color:var(--ink2)}
+@media(min-width:52rem){.principles{grid-template-columns:repeat(3,1fr)}}
+
+/* dosing demo */
+.dose{background:var(--white);border:1px solid var(--rule);border-radius:1.6rem;padding:1.4rem;box-shadow:0 30px 60px -40px rgba(15,44,68,.45);transition:background .4s var(--ease),border-color .4s var(--ease)}
+.dose.ped{background:#FFF8FB;border-color:#E9C6D7}
+.dose-top{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+.seg{display:inline-flex;padding:.2rem;border-radius:999px;background:var(--paper2)}
+.seg button{border:0;background:none;padding:.45rem .9rem;border-radius:999px;font-size:.88rem;font-weight:600;color:var(--ink2);transition:background .25s,color .25s}
+.seg button[aria-pressed=true]{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.dose.ped .seg button[aria-pressed=true]{color:var(--ped)}
+.wt{margin-top:1.4rem}
+.wt label,.o2grid label{display:flex;justify-content:space-between;align-items:baseline;font-size:.9rem;color:var(--ink2)}
+.wt output{font:700 1.6rem/1 var(--sans);color:var(--ink);letter-spacing:-.02em}
+input[type=range]{width:100%;margin:.7rem 0 0;accent-color:var(--blue);height:1.6rem}
+.dose.ped input[type=range]{accent-color:var(--ped)}
+.pline{margin-top:1.3rem;border:1px solid var(--rule);border-radius:1rem;overflow:hidden;background:var(--white)}
+.pline header{display:flex;justify-content:space-between;gap:.6rem;padding:.65rem .9rem;background:var(--paper);font-size:.78rem;color:var(--ink3)}
+.pline .src{padding:.9rem;border-left:3px solid var(--cyan);margin:.8rem;background:#F1F8F9;border-radius:0 .6rem .6rem 0;font-size:.95rem}
+.pline .src small{display:block;color:var(--ink3);font-size:.76rem;margin-top:.15rem}
+.pline .calc{display:flex;align-items:baseline;gap:.4rem .7rem;flex-wrap:wrap;padding:0 .9rem 1rem}
+.pline .calc b{font:700 2.4rem/1 var(--sans);letter-spacing:-.03em;color:var(--proc)}
+.pline .calc span{color:var(--ink2);font-size:.9rem}
+.cap{display:none;margin:0 .9rem 1rem;padding:.55rem .7rem;border-radius:.6rem;background:#FFF4E0;color:#7A4A00;font-size:.84rem;border:1px solid #F0D3A4}
+.cap.on{display:block;animation:pop .3s var(--ease)}
+@keyframes pop{from{opacity:0;transform:translateY(-3px)}}
+.pedbar{display:none;margin-top:1rem;padding:.55rem .8rem;border-radius:.7rem;background:linear-gradient(90deg,#F8E4EF,#FFF9FC);color:var(--ped);font:700 .74rem/1.3 var(--sans);letter-spacing:.08em;text-transform:uppercase}
+.dose.ped .pedbar{display:block;animation:pop .3s var(--ease)}
+
+/* smart tabs */
+.tabs{margin-top:2.4rem}
+.tablist{display:flex;gap:.4rem;overflow-x:auto;padding:.2rem .1rem .5rem;scrollbar-width:none}
+.tablist::-webkit-scrollbar{display:none}
+.tablist button{flex:0 0 auto;border:1px solid var(--rule);background:var(--white);border-radius:999px;padding:.6rem 1rem;font-weight:600;font-size:.92rem;color:var(--ink2);transition:background .25s var(--ease),color .25s,border-color .25s}
+.tablist button[aria-selected=true]{background:var(--blue);border-color:var(--blue);color:#fff}
+.panel{margin-top:1rem;display:grid;gap:1.5rem;background:var(--white);border:1px solid var(--rule);border-radius:1.6rem;padding:1.5rem;animation:pop .4s var(--ease)}
+.panel[hidden]{display:none}
+.panel h3{margin:0;font:650 1.45rem/1.2 var(--sans);letter-spacing:-.015em}
+.panel p{margin:.6rem 0 0;color:var(--ink2)}
+.panel ul{margin:1rem 0 0;padding:0;list-style:none;display:grid;gap:.55rem}
+.panel li{display:flex;gap:.6rem;color:var(--ink2);font-size:.95rem}
+.panel li::before{content:"";flex:0 0 auto;margin-top:.55rem;width:.4rem;height:.4rem;border-radius:50%;background:var(--cyanD)}
+.mock{border-radius:1.2rem;background:#F4F6F8;border:1px solid #E3E8EC;padding:1rem;font-size:.85rem}
+.mock .ssearch{margin:0}
+.mock .res{opacity:1;transform:none;margin-top:.5rem}
+@media(min-width:52rem){.panel{grid-template-columns:1fr 1.1fr;align-items:center;padding:2.2rem}}
+.cap-shot{position:relative;border-radius:.9rem;background:#0B1116;padding:.9rem;color:#C9F2FF;font:600 .78rem/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;overflow:hidden}
+.cap-shot .row{display:flex;justify-content:space-between;border-bottom:1px dashed rgba(201,242,255,.15);padding:.18rem 0}
+.cap-shot .scan{position:absolute;left:0;right:0;height:2.5rem;top:-2.5rem;background:linear-gradient(180deg,transparent,rgba(43,196,214,.35),transparent);animation:scan 2.6s var(--ease) 3}
+@keyframes scan{to{top:100%}}
+.fields{display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem;margin-top:.7rem}
+.fields div{background:#fff;border:1px solid #E3E8EC;border-radius:.6rem;padding:.4rem .5rem}
+.fields small{display:block;font:700 .55rem/1 var(--sans);letter-spacing:.1em;color:#6A7C87}
+.fields b{font-size:.95rem}
+.okline{margin-top:.6rem;font-size:.78rem;color:var(--proc);font-weight:600}
+.flow{display:grid;gap:.5rem}
+.step{display:flex;gap:.7rem;align-items:center;background:#fff;border:1px solid #E3E8EC;border-radius:.8rem;padding:.6rem .7rem;opacity:.45;transition:opacity .4s,border-color .4s}
+.step.on{opacity:1;border-color:#8FD9E3}
+.step i{flex:0 0 auto;width:1.6rem;height:1.6rem;border-radius:50%;display:grid;place-items:center;background:var(--paper2);font:700 .75rem/1 var(--sans);font-style:normal;transition:background .3s}
+.step.on i{background:var(--cyan);color:#062029}
+.step b{display:block;font-size:.88rem}.step small{color:#6A7C87;font-size:.74rem}
+.hrow{display:flex;align-items:center;gap:.6rem;background:#fff;border:1px solid #E3E8EC;border-radius:.8rem;padding:.55rem .7rem;margin-bottom:.45rem}
+.hrow b{flex:1;font-size:.85rem}.hrow small{color:#6A7C87;font-size:.72rem;font-weight:400}
+.badges{display:flex;gap:.25rem;flex-wrap:wrap;justify-content:flex-end}
+.badges span{font:700 .55rem/1 var(--sans);letter-spacing:.04em;padding:.25rem .35rem;border-radius:.35rem;color:#fff}
+
+/* flight ops */
+.fo{margin-top:2.5rem;display:grid;gap:1.2rem}
+.map{position:relative;border-radius:1.6rem;overflow:hidden;background:#0A1822;border:1px solid var(--nightLine);aspect-ratio:4/3.1;box-shadow:0 40px 80px -40px rgba(0,0,0,.8)}
+.map svg{position:absolute;inset:0;width:100%;height:100%}
+.layer{transition:opacity .45s var(--ease)}
+.layer.off{opacity:0}
+.legend{position:absolute;left:.8rem;bottom:.8rem;display:flex;gap:.4rem;flex-wrap:wrap}
+.legend span{display:flex;align-items:center;gap:.3rem;padding:.25rem .5rem;border-radius:999px;background:rgba(8,19,28,.75);font-size:.7rem;color:var(--nightDim)}
+.legend i{width:.5rem;height:.5rem;border-radius:50%}
+.maptag{position:absolute;right:.8rem;top:.8rem;background:rgba(43,196,214,.15);color:var(--cyan);border:1px solid rgba(43,196,214,.4)}
+.toggles{display:grid;gap:.5rem}
+.toggle{display:flex;align-items:center;gap:.8rem;width:100%;text-align:left;padding:.85rem 1rem;border-radius:1rem;border:1px solid var(--nightLine);background:rgba(255,255,255,.03);color:var(--nightInk);transition:background .25s,border-color .25s}
+.toggle:hover{background:rgba(255,255,255,.06)}
+.toggle .sw{position:relative;flex:0 0 auto;width:2.4rem;height:1.4rem;border-radius:999px;background:#2A3E4D;transition:background .25s}
+.toggle .sw::after{content:"";position:absolute;top:.15rem;left:.15rem;width:1.1rem;height:1.1rem;border-radius:50%;background:#fff;transition:transform .3s var(--ease)}
+.toggle[aria-pressed=true] .sw{background:var(--cyan)}.toggle[aria-pressed=true] .sw::after{transform:translateX(1rem)}
+.toggle b{display:block;font-size:.95rem}.toggle small{display:block;color:var(--nightDim);font-size:.8rem;line-height:1.35}
+.fo-note{margin:.8rem 0 0;padding:.9rem 1rem;border-radius:1rem;border:1px solid rgba(255,190,77,.35);background:rgba(255,190,77,.08);color:#F3D9A8;font-size:.88rem}
+@media(min-width:60rem){.fo{grid-template-columns:1.5fr 1fr;align-items:start}}
+
+/* oxygen */
+.o2{background:var(--white);border:1px solid var(--rule);border-radius:1.6rem;padding:1.4rem;box-shadow:0 30px 60px -40px rgba(15,44,68,.45)}
+.cyls{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem}
+.cyl{border:1px solid var(--rule);background:var(--paper);border-radius:1rem;padding:.6rem .3rem .5rem;display:grid;justify-items:center;gap:.25rem;transition:border-color .25s,background .25s,box-shadow .25s}
+.cyl[aria-pressed=true]{border-color:var(--proc);background:#EEF8F3;box-shadow:0 0 0 3px rgba(0,129,91,.12)}
+.cyl svg{height:3.6rem;width:auto}
+.cyl b{font-size:.95rem}.cyl small{font-size:.66rem;color:var(--ink3)}
+.o2grid{display:grid;gap:1rem;margin-top:1.2rem}
+.o2grid output{font-weight:700;color:var(--ink)}
+.o2out{margin-top:1.3rem;padding:1.1rem;border-radius:1.1rem;background:var(--paper)}
+.o2out .big{font:700 clamp(2.4rem,9vw,3.2rem)/1 var(--sans);letter-spacing:-.03em}
+.o2out .big small{font-size:.4em;font-weight:600;color:var(--ink2);letter-spacing:0;margin-left:.3rem}
+.bar{position:relative;margin-top:1rem;height:.7rem;border-radius:999px;background:#E6E2D8}
+.bar i{position:absolute;inset:0 auto 0 0;border-radius:999px;background:var(--proc);transition:width .45s var(--ease),background .3s}
+.bar em{position:absolute;top:-.3rem;bottom:-.3rem;width:2px;background:var(--ink);transition:left .45s var(--ease)}
+.barkey{display:flex;justify-content:space-between;margin-top:.45rem;font-size:.74rem;color:var(--ink3)}
+.o2msg{margin:.7rem 0 0;font-size:.92rem;font-weight:600}
+.o2msg.good{color:var(--proc)}.o2msg.short{color:#B3261E}
+
+/* manuals */
+.mansearch{margin-top:2.2rem;display:flex;align-items:center;gap:.6rem;max-width:30rem;padding:.75rem 1rem;border-radius:999px;background:var(--white);border:1px solid var(--rule);box-shadow:0 10px 30px -20px rgba(15,44,68,.4)}
+.mansearch input{flex:1;border:0;background:none;font:inherit;outline:none;min-width:0}
+.mansearch svg{width:1.1rem;height:1.1rem;color:var(--ink3)}
+.mansearch:focus-within{border-color:var(--cyanD);box-shadow:0 0 0 4px rgba(14,122,135,.12)}
+.manuals{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem;margin-top:1.3rem}
+.man{position:relative;text-align:left;border:1px solid var(--rule);background:var(--white);border-radius:1.2rem;padding:1rem;min-height:8.2rem;display:flex;flex-direction:column;justify-content:space-between;transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s}
+.man:hover{transform:translateY(-3px);box-shadow:0 20px 40px -28px rgba(15,44,68,.4)}
+.man[aria-pressed=true]{border-color:var(--blue);box-shadow:0 0 0 3px rgba(15,44,68,.12)}
+.man.hide{display:none}
+.man .dot{width:2.1rem;height:2.1rem;border-radius:.7rem;display:grid;place-items:center;color:#fff;font:700 .7rem/1 var(--sans)}
+.man b{display:block;font-size:.95rem;margin-top:.8rem}.man small{color:var(--ink3);font-size:.78rem}
+.manempty{display:none;grid-column:1/-1;padding:1.2rem;border-radius:1rem;background:var(--white);border:1px solid var(--rule);color:var(--ink2)}
+.mandetail{margin-top:1rem;background:var(--white);border:1px solid var(--rule);border-radius:1.4rem;padding:1.3rem;animation:pop .35s var(--ease)}
+.mandetail h3{margin:0;font:650 1.15rem/1.3 var(--sans)}
+.mandetail .meta{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.6rem}
+.mandetail .meta span{font-size:.75rem;padding:.25rem .55rem;border-radius:999px;background:var(--paper2);color:var(--ink2)}
+.mandetail .meta span.ok{background:#EEF8F3;color:var(--proc);font-weight:600}
+.hit{margin-top:.9rem;padding:.7rem .85rem;border-radius:.7rem;background:var(--paper);font-size:.9rem;color:var(--ink2)}
+.hit mark{background:#CDEFF4;color:var(--ink);border-radius:.2rem;padding:0 .1rem}
+.hit small{display:block;margin-top:.25rem;color:var(--ink3);font-size:.75rem}
+.steps4{display:grid;gap:.8rem;margin:2.5rem 0 0;padding:0;list-style:none;counter-reset:s}
+.steps4 li{counter-increment:s;background:var(--white);border:1px solid var(--rule);border-radius:1.2rem;padding:1.1rem 1.1rem 1.1rem 3.6rem;position:relative;color:var(--ink2);font-size:.95rem}
+.steps4 li::before{content:counter(s);position:absolute;left:1.1rem;top:1.05rem;width:1.7rem;height:1.7rem;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font:700 .8rem/1 var(--sans)}
+.steps4 b{display:block;color:var(--ink);font-size:1rem}
+@media(min-width:52rem){.manuals{grid-template-columns:repeat(4,1fr)}.steps4{grid-template-columns:repeat(4,1fr)}}
+
+/* home-screen tiles */
+.tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem;margin-top:2.4rem}
+.tile{background:var(--white);border:1px solid var(--rule);border-radius:1.3rem;padding:1.1rem;transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.tile:hover{transform:translateY(-3px);box-shadow:0 20px 40px -28px rgba(15,44,68,.4)}
+.tile .ic{width:2.4rem;height:2.4rem;border-radius:.8rem}
+.tile .ic svg{width:1.2rem;height:1.2rem}
+.tile b{display:block;margin-top:.9rem;font-size:1rem}.tile small{display:block;margin-top:.2rem;color:var(--ink3);font-size:.82rem;line-height:1.4}
+@media(min-width:52rem){.tiles{grid-template-columns:repeat(4,1fr)}}
+
+/* limits */
+.limits{display:grid;gap:1rem;margin-top:2.4rem}
+.limit{border-radius:1.3rem;padding:1.4rem;background:rgba(255,255,255,.04);border:1px solid var(--nightLine)}
+.limit b{display:block;font-size:1.05rem;color:#fff}.limit p{margin:.5rem 0 0;color:var(--nightDim)}
+@media(min-width:52rem){.limits{grid-template-columns:repeat(3,1fr)}}
+
+/* FAQ */
+.faq{margin-top:2.2rem;border-top:1px solid var(--rule)}
+.faq details{border-bottom:1px solid var(--rule)}
+.faq summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1.25rem .2rem;cursor:pointer;font:600 1.08rem/1.4 var(--sans)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";flex:0 0 auto;width:.6rem;height:.6rem;border-right:2px solid var(--ink3);border-bottom:2px solid var(--ink3);transform:translateY(-3px) rotate(45deg);transition:transform .3s var(--ease)}
+.faq details[open] summary::after{transform:translateY(2px) rotate(225deg)}
+.faq .ans{padding:0 .2rem 1.3rem;color:var(--ink2);max-width:46rem}
+.faq details[open] .ans{animation:pop .35s var(--ease)}
+
+/* contact + footer */
+.contact{text-align:center;background:radial-gradient(40rem 20rem at 50% 0,rgba(43,196,214,.18),transparent 70%),linear-gradient(180deg,var(--night2),var(--night));color:var(--nightInk)}
+.contact .h2{color:#fff}.contact .sub{margin-left:auto;margin-right:auto}
+.contact .btn{margin-top:2rem;font-size:1.05rem;padding:1rem 1.5rem}
+footer{background:var(--night);color:var(--nightDim);border-top:1px solid rgba(255,255,255,.06);font-size:.88rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:.6rem 1.6rem;align-items:center;padding-top:1.6rem;padding-bottom:max(2rem,env(safe-area-inset-bottom))}
+footer .name{font:400 1.1rem/1 var(--serif);color:#fff}footer a{color:var(--nightDim)}
+
+/* reveal: rises 8px, once (JS adds .in when it enters the screen) */
+.js .rv{opacity:0;transform:translateY(8px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.js .rv.in{opacity:1;transform:none}
+
+/* entrance motion */
+@media (prefers-reduced-motion:no-preference){
+  .hero h1{animation:fade 1s ease-out both}
+  .lead::after{animation:draw .8s var(--ease) .6s both}
+  .phone{animation:float-in 1.1s var(--ease) .25s both}
+}
+@keyframes fade{from{opacity:0}}
+@keyframes draw{from{transform:scaleX(0)}}
+@keyframes float-in{from{opacity:0;transform:translateY(24px) scale(.98)}}
+/* reduced motion: everything still and visible */
+html.still *,html.still *::before,html.still *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+html.still .rv,html.still .res{opacity:1!important;transform:none!important}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" aria-label="Main">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Hiero Clinical, top of page">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#0F2C44"/><rect x="16" y="14" width="8" height="36" rx="4" fill="#fff"/><rect x="40" y="14" width="8" height="36" rx="4" fill="#fff"/><rect x="26.5" y="20" width="11" height="3.6" rx="1.8" fill="#fff" opacity=".45"/><rect x="20" y="28.5" width="24" height="7" rx="3.5" fill="#2BC4D6"/><rect x="26.5" y="40" width="7" height="3.6" rx="1.8" fill="#fff" opacity=".45"/></svg>
+      <b>Hiero</b>
+    </a>
+    <div class="navlinks">
+      <button type="button" id="featBtn" aria-expanded="false" aria-controls="featMenu">Features<span class="chev" aria-hidden="true">▼</span></button>
+      <a href="#limits">Safety</a>
+      <a href="#faq">Questions</a>
+      <a class="navcta" href="mailto:hello@hieroclinical.com">Contact</a>
+    </div>
+    <button class="burger" type="button" id="burger" aria-expanded="false" aria-controls="featMenu" aria-label="Open menu"><i></i></button>
+  </div>
+  <div class="menu" id="featMenu">
+    <div class="wrap">
+      <a href="#protocols"><span class="mi" style="background:var(--blue2)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 3h9l3 3v15H6z"/><path d="M9 10h6M9 14h6M9 18h3"/></svg></span><span><b>Your protocols</b><small>The program’s own guidelines, in its own words</small></span></a>
+      <a href="#dosing"><span class="mi" style="background:var(--proc)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 3h4v4l4 4v10H6V11l4-4z"/><path d="M9 15h6M12 12v6"/></svg></span><span><b>Weight- and age-aware dosing</b><small>Doses from the protocol, sized to the patient</small></span></a>
+      <a href="#smart"><span class="mi" style="background:var(--cyanD)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="6"/><path d="m20 20-4.5-4.5"/></svg></span><span><b>Smart features</b><small>Ask Hiero, Smart Capture, program setup, hospitals</small></span></a>
+      <a href="#flightops"><span class="mi" style="background:var(--ops)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 13l8-1 4-8h2l-2 8 6 1v2l-6 1 2 6h-2l-4-6-8-1z"/></svg></span><span><b>Flight Ops</b><small>Weather, hazards, hospitals and traffic on one map</small></span></a>
+      <a href="#oxygen"><span class="mi" style="background:#18A058">O₂</span><span><b>Oxygen planner</b><small>Cylinders, LOX, vent and BiPAP consumption</small></span></a>
+      <a href="#manuals"><span class="mi" style="background:var(--mcs)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5M9 7h6"/></svg></span><span><b>Device manuals</b><small>Bring guides in, review them, search offline</small></span></a>
+      <div class="mobile-extra">
+        <a href="#limits"><span><b>Safety</b><small>What Hiero is not</small></span></a>
+        <a href="#faq"><span><b>Questions</b><small>Offline use, content control, patient data</small></span></a>
+        <a href="mailto:hello@hieroclinical.com"><span><b>Contact</b><small>hello@hieroclinical.com</small></span></a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">Hiero Clinical</p>
+      <h1>Hiero</h1>
+      <p class="lead">Your program’s patient-care guidelines, on the device, for the crew.</p>
+      <p class="who">For flight nurses, critical-care paramedics, and the medical director who owns the protocol. Hiero opens the program’s written guideline at the moment it is needed: on the ramp, in the back of the aircraft, or in the office where the protocol is written.</p>
+      <div class="ctas">
+        <a class="btn primary" href="#protocols">Explore Hiero <span aria-hidden="true">↓</span></a>
+        <a class="btn ghost" href="mailto:hello@hieroclinical.com">Talk with us</a>
+      </div>
+      <ul class="facts"><li>Works without a signal</li><li>Your program’s text, unchanged</li><li>Android and iPhone</li></ul>
+    </div>
+
+    <div class="phone" role="img" aria-label="Hiero on a phone: the crew types a question and the program’s protocol pages appear.">
+      <div class="screen" aria-hidden="true">
+        <div class="island"></div>
+        <div class="sbar"></div>
+        <div class="ptstrip"><div><small>AGE</small><b>54 y</b></div><div><small>WEIGHT</small><b>80 kg</b></div><div><small>HEIGHT</small><b>178 cm</b></div></div>
+        <div class="ssearch"><i><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 20 20"/></svg></i><span id="typed"></span></div>
+        <div class="results" id="results"></div>
+        <span class="demo-badge">DEMO CONTENT</span>
+        <div class="tabbar"><span><i></i>Home</span><span><i></i>Dispatch</span><span><i></i>Capture</span><span><i></i>Find</span><span><i></i>More</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ PROTOCOLS ============ -->
+<section class="band" id="protocols" aria-labelledby="pTitle">
+  <div class="wrap">
+    <div class="rv">
+      <p class="eyebrow">Built from your program</p>
+      <h2 class="h2" id="pTitle">The crew reads your text.<br>Not a summary of it.</h2>
+      <p class="sub">A program loads its own patient-care guidelines. Hiero arranges them for a phone, keeps every line tied to the page it came from, and opens them in a moment, with or without a signal.</p>
+    </div>
+    <div class="principles">
+      <article class="pcard rv">
+        <span class="ic" style="background:var(--blue2)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 3h9l3 3v15H6z"/><path d="M9 10h6M9 14h6M9 18h3"/></svg></span>
+        <h3>The program’s own protocols</h3>
+        <p>Protocols appear in the order and wording the program chose, with the revision on every page, so the crew knows which version they are reading. No paging through a PDF with gloves on.</p>
+      </article>
+      <article class="pcard rv">
+        <span class="ic" style="background:var(--proc)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 3h4v4l4 4v10H6V11l4-4z"/><path d="M9 15h6M12 12v6"/></svg></span>
+        <h3>Doses from those protocols, sized to the patient</h3>
+        <p>Enter weight and age once. Hiero works out the doses the protocol already states, shows the line they came from, and respects the protocol’s maximums. It never supplies a dose the protocol does not contain.</p>
+      </article>
+      <article class="pcard rv">
+        <span class="ic" style="background:var(--vent)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 4v7M8 11c-3 0-4 3-4 6 0 2 1 3 3 3s3-2 3-4v-5M16 11c3 0 4 3 4 6 0 2-1 3-3 3s-3-2-3-4v-5"/></svg></span>
+        <h3>Vent and device references at the bedside</h3>
+        <p>Ventilator settings, device checklists and the program’s reference cards sit next to the protocols that call for them, and they are stored on the phone for the back of an aircraft.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DOSING ============ -->
+<section class="band paper2" id="dosing" aria-labelledby="dTitle">
+  <div class="wrap split">
+    <div class="rv">
+      <p class="eyebrow">Weight- and age-aware</p>
+      <h2 class="h2" id="dTitle">Move the weight.<br>Watch the line follow.</h2>
+      <p class="sub">Every dose Hiero shows starts as a sentence in your protocol. Hiero does the arithmetic, applies the protocol’s ceiling, and keeps the source in view so the crew can check it at a glance.</p>
+      <p class="sub" style="font-size:1rem">When a patient falls under the program’s pediatric rule, the whole app changes color, so nobody reads an adult page by mistake. Try the Pediatric switch.</p>
+    </div>
+    <div class="dose rv" id="doseCard">
+      <div class="dose-top">
+        <div class="seg" role="group" aria-label="Patient">
+          <button type="button" aria-pressed="true" data-pop="adult">Adult</button>
+          <button type="button" aria-pressed="false" data-pop="ped">Pediatric</button>
+        </div>
+        <span class="tag" style="background:#FFF4E0;color:#7A4A00">Illustration</span>
+      </div>
+      <div class="pedbar">Pediatric patient · program pediatric rule applies</div>
+      <div class="wt">
+        <label for="wt"><span>Weight</span><output id="wtOut" for="wt">80 kg</output></label>
+        <input id="wt" type="range" min="3" max="150" value="80" step="1">
+      </div>
+      <div class="pline">
+        <header><span>Your program · Protocol 3.1</span><span>Rev. as written · p. 12</span></header>
+        <div class="src">“Sample drug 0.1 mg/kg IV. Maximum single dose 5 mg.”<small>Exact protocol wording, shown beside the result</small></div>
+        <div class="calc" aria-live="polite"><b id="doseOut">5 mg</b><span id="doseHow">0.1 mg/kg × 80 kg = 8 mg, capped at the protocol maximum</span></div>
+        <div class="cap" id="capNote">Protocol maximum applied. The calculated amount is higher than the written ceiling.</div>
+      </div>
+      <p class="fine">Sample text for illustration only. Hiero calculates only from doses written in your program’s protocol.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SMART ============ -->
+<section class="band" id="smart" aria-labelledby="sTitle">
+  <div class="wrap">
+    <div class="rv">
+      <p class="eyebrow">Smart features</p>
+      <h2 class="h2" id="sTitle">Helpful where it saves a step.<br>Quiet everywhere else.</h2>
+      <p class="sub">Each feature reads, finds or organizes the program’s material. None of them writes clinical guidance.</p>
+    </div>
+    <div class="tabs rv">
+      <div class="tablist" role="tablist" aria-label="Smart features">
+        <button role="tab" id="t-ask" aria-controls="p-ask" aria-selected="true">Ask Hiero</button>
+        <button role="tab" id="t-cap" aria-controls="p-cap" aria-selected="false" tabindex="-1">Smart Capture</button>
+        <button role="tab" id="t-set" aria-controls="p-set" aria-selected="false" tabindex="-1">Program setup</button>
+        <button role="tab" id="t-hos" aria-controls="p-hos" aria-selected="false" tabindex="-1">Hospitals</button>
+      </div>
+
+      <div class="panel" role="tabpanel" id="p-ask" aria-labelledby="t-ask">
+        <div>
+          <h3>Ask in your own words. Get the program’s page.</h3>
+          <p>Type “RSI 80 kg” or “T1 high pressure alarm.” Hiero searches the program’s protocols, formulary and device guides on the phone first, and opens the exact line.</p>
+          <ul><li>Search runs on the device, so it works in the air</li><li>Answers point to a protocol, page and revision</li><li>If the program has no matching text, Hiero says so plainly</li></ul>
+        </div>
+        <div class="mock" aria-hidden="true">
+          <div class="ssearch"><i><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 20 20"/></svg></i><span>T1 high pressure alarm</span></div>
+          <div class="res"><span class="k"><i style="background:var(--vent)"></i>Device guide · Ventilator</span><b>High pressure alarm</b><div class="hl">The program’s checklist for this alarm, step by step</div><p>Guide p. 214 · added by your program</p></div>
+          <div class="res"><span class="k"><i style="background:var(--air)"></i>Protocol 2.1 · Airway</span><b>Ventilated patient: troubleshooting</b><p>DOPE checklist and the program’s vent settings</p></div>
+        </div>
+      </div>
+
+      <div class="panel" role="tabpanel" id="p-cap" aria-labelledby="t-cap" hidden>
+        <div>
+          <h3>Photograph the screen. Hiero reads it on the phone.</h3>
+          <p>Point the camera at a ventilator, a lab panel, a pump or a drug label. Text is read on the device, the values land in the right fields, and the crew confirms them before anything is used.</p>
+          <ul><li>Reading happens on the phone; photos are not uploaded</li><li>Camera images are deleted after reading</li><li>Every value waits for the crew to confirm it</li></ul>
+        </div>
+        <div class="mock" aria-hidden="true">
+          <div class="cap-shot"><div class="scan"></div>
+            <div class="row"><span>MODE</span><span>PC-SIMV</span></div><div class="row"><span>RATE</span><span>16</span></div><div class="row"><span>PEEP</span><span>8</span></div><div class="row"><span>FiO2</span><span>50%</span></div><div class="row"><span>VTe</span><span>470</span></div>
+          </div>
+          <div class="fields"><div><small>RATE</small><b>16</b></div><div><small>PEEP</small><b>8</b></div><div><small>FIO2</small><b>50%</b></div></div>
+          <div class="okline">✓ Read on the device · confirm each value</div>
+        </div>
+      </div>
+
+      <div class="panel" role="tabpanel" id="p-set" aria-labelledby="t-set" hidden>
+        <div>
+          <h3>Bring in the program. Review it. Then turn it on.</h3>
+          <p>A program uploads its protocol PDFs, formulary and contacts. Hiero prepares a draft that keeps every line tied to its source page. Nothing becomes active clinical guidance until the program reviews it and activates it.</p>
+          <ul><li>Every dose line is checked against the source before activation</li><li>Revisions show exactly what changed</li><li>Demo and starter content is always labeled as not for patient care</li></ul>
+        </div>
+        <div class="mock flow" aria-hidden="true" id="setupFlow">
+          <div class="step on"><i>1</i><span><b>Upload protocols</b><small>PDF, as the program publishes it</small></span></div>
+          <div class="step"><i>2</i><span><b>Draft prepared</b><small>Every line linked to its page</small></span></div>
+          <div class="step"><i>3</i><span><b>Program review</b><small>Doses, maximums and units verified</small></span></div>
+          <div class="step"><i>4</i><span><b>Activated</b><small>Crews see the reviewed version</small></span></div>
+        </div>
+      </div>
+
+      <div class="panel" role="tabpanel" id="p-hos" aria-labelledby="t-hos" hidden>
+        <div>
+          <h3>Receiving hospitals, with their designations.</h3>
+          <p>Hiero carries a nationwide hospital list on the phone, with trauma, stroke, burn, cardiac and pediatric designations where states publish them, and checks those lists for changes.</p>
+          <ul><li>Search by name, city or area, offline</li><li>Designations show their source and date</li><li>Hiero lists hospitals; the destination is the crew’s and the program’s decision</li></ul>
+        </div>
+        <div class="mock" aria-hidden="true">
+          <div class="hrow"><b>Regional Medical Center<br><small>14 mi · helipad</small></b><span class="badges"><span style="background:var(--code)">TRAUMA I</span><span style="background:var(--ino)">STROKE</span></span></div>
+          <div class="hrow"><b>Children’s Hospital<br><small>22 mi</small></b><span class="badges"><span style="background:var(--ped)">PEDS</span><span style="background:var(--code)">TRAUMA I</span></span></div>
+          <div class="hrow"><b>University Hospital<br><small>31 mi · helipad</small></b><span class="badges"><span style="background:var(--mcs)">BURN</span><span style="background:var(--card)">PCI</span></span></div>
+          <p class="fine" style="font-size:.74rem">Example names. Designation data comes from published state lists.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FLIGHT OPS ============ -->
+<section class="band dark" id="flightops" aria-labelledby="fTitle">
+  <div class="wrap">
+    <div class="rv">
+      <p class="eyebrow">Flight Ops <span class="tag" style="background:rgba(43,196,214,.15);color:var(--cyan);margin-left:.4rem">Pro</span></p>
+      <h2 class="h2" id="fTitle">The weather, the hazards, the hospitals.<br>One calm map.</h2>
+      <p class="sub">Flight category at nearby stations, active SIGMETs, G-AIRMETs and center weather advisories, receiving hospitals with their designations, and nearby traffic. Switch the layers to see what each one adds.</p>
+    </div>
+    <div class="fo">
+      <div class="map rv" id="map">
+        <svg viewBox="0 0 400 310" role="img" aria-label="Example Flight Ops map with stations colored by flight category, hazard areas, hospitals and aircraft around the base.">
+          <defs>
+            <linearGradient id="sweepG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2BC4D6" stop-opacity="0"/><stop offset="1" stop-color="#2BC4D6" stop-opacity=".28"/></linearGradient>
+            <pattern id="grid" width="25" height="25" patternUnits="userSpaceOnUse"><path d="M25 0H0V25" fill="none" stroke="#14303F" stroke-width=".6"/></pattern>
+          </defs>
+          <rect width="400" height="310" fill="#0A1822"/><rect width="400" height="310" fill="url(#grid)"/>
+          <path d="M-10 230 C 60 200, 120 250, 190 215 S 320 160, 410 190" fill="none" stroke="#173B4E" stroke-width="10"/>
+          <path d="M40 -10 C 70 80, 60 160, 130 320" fill="none" stroke="#1A2F3D" stroke-width="2.4"/>
+          <path d="M-10 120 L 410 95" stroke="#1A2F3D" stroke-width="2"/>
+          <g fill="none" stroke="#2BC4D6" stroke-opacity=".14"><circle cx="200" cy="160" r="60"/><circle cx="200" cy="160" r="120"/><circle cx="200" cy="160" r="180"/></g>
+          <g class="layer" data-layer="hazards" font-family="system-ui,sans-serif" font-size="9" font-weight="700">
+            <path d="M250 40 L345 55 L360 130 L300 150 L245 110 Z" fill="#E5484D" fill-opacity=".14" stroke="#E5484D" stroke-dasharray="5 4" stroke-width="1.4"/>
+            <text x="262" y="72" fill="#FF8A8F">SIGMET · CONVECTIVE</text>
+            <path d="M40 230 L130 222 L140 280 L50 292 Z" fill="#C054D6" fill-opacity=".12" stroke="#C054D6" stroke-dasharray="3 4" stroke-width="1.2"/>
+            <text x="50" y="244" fill="#D79BE4">G-AIRMET · IFR</text>
+          </g>
+          <g class="layer" data-layer="wx" font-family="system-ui,sans-serif" font-size="8.5" font-weight="700">
+            <circle cx="215" cy="185" r="5.5" fill="#3FBF7F"/><text x="224" y="188" fill="#9FE3BF">VFR</text>
+            <circle cx="95" cy="70" r="5.5" fill="#4C8DF6"/><text x="104" y="73" fill="#A9C6FB">MVFR</text>
+            <circle cx="320" cy="215" r="5.5" fill="#3FBF7F"/><text x="329" y="218" fill="#9FE3BF">VFR</text>
+            <circle cx="88" cy="268" r="5.5" fill="#E5484D"/><text x="97" y="271" fill="#F4A3A6">IFR</text>
+            <circle cx="330" cy="98" r="5.5" fill="#C054D6"/><text x="339" y="101" fill="#E3B4EC">LIFR</text>
+          </g>
+          <g class="layer" data-layer="hospitals" font-family="system-ui,sans-serif" font-size="8" font-weight="700">
+            <g transform="translate(140 118)"><rect x="-8" y="-8" width="16" height="16" rx="4" fill="#fff"/><path d="M-1.6-5h3.2v3.4H5v3.2H1.6V5h-3.2V1.6H-5v-3.2h3.4z" fill="#E5484D"/><text x="12" y="3" fill="#E8EFF3">Regional · Trauma I</text></g>
+            <g transform="translate(250 255)"><rect x="-8" y="-8" width="16" height="16" rx="4" fill="#fff"/><path d="M-1.6-5h3.2v3.4H5v3.2H1.6V5h-3.2V1.6H-5v-3.2h3.4z" fill="#A33B72"/><text x="12" y="3" fill="#E8EFF3">Children’s · Peds</text></g>
+          </g>
+          <g class="layer" data-layer="traffic" id="traffic"></g>
+          <g transform="translate(200 160)"><g><path d="M0 0 L180 0 A180 180 0 0 0 127 -127 Z" fill="url(#sweepG)"/><animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="6s" repeatCount="indefinite"/></g></g>
+          <g transform="translate(200 160)"><circle r="6" fill="#2BC4D6"/><circle r="12" fill="none" stroke="#2BC4D6" stroke-opacity=".45"/><text x="12" y="-10" fill="#BFF2F8" font-size="9" font-family="system-ui,sans-serif" font-weight="700">BASE</text></g>
+        </svg>
+        <span class="tag maptag">Example data</span>
+        <div class="legend" aria-hidden="true"><span><i style="background:var(--vfr)"></i>VFR</span><span><i style="background:var(--mvfr)"></i>MVFR</span><span><i style="background:var(--ifr)"></i>IFR</span><span><i style="background:var(--lifr)"></i>LIFR</span></div>
+      </div>
+      <div class="rv">
+        <div class="toggles">
+          <button type="button" class="toggle" aria-pressed="true" data-t="wx"><span class="sw" aria-hidden="true"></span><span><b>Station weather</b><small>METAR and TAF, colored by flight category</small></span></button>
+          <button type="button" class="toggle" aria-pressed="true" data-t="hazards"><span class="sw" aria-hidden="true"></span><span><b>Hazards</b><small>SIGMETs, G-AIRMETs, center weather advisories and NWS alerts</small></span></button>
+          <button type="button" class="toggle" aria-pressed="true" data-t="hospitals"><span class="sw" aria-hidden="true"></span><span><b>Hospitals</b><small>Receiving facilities with state-verified designations</small></span></button>
+          <button type="button" class="toggle" aria-pressed="true" data-t="traffic"><span class="sw" aria-hidden="true"></span><span><b>Traffic</b><small>Nearby aircraft from public ADS-B feeds</small></span></button>
+        </div>
+        <p class="fo-note">Situational awareness only. Hiero does not make a go or no-go decision, choose a launch or a landing, or replace the pilot’s and the program’s weather minimums.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OXYGEN ============ -->
+<section class="band" id="oxygen" aria-labelledby="oTitle">
+  <div class="wrap split flip">
+    <div class="rv">
+      <p class="eyebrow">Oxygen planner</p>
+      <h2 class="h2" id="oTitle">Know the minutes<br>before you leave the bay.</h2>
+      <p class="sub">Pick the cylinder, set the pressure and the flow, and see how long the gas lasts against the whole mission: bedside, loading, the leg itself, unloading and handoff. The planner handles liquid oxygen and ventilator or BiPAP consumption too.</p>
+      <p class="sub" style="font-size:1rem">Set up each aircraft once. The planner remembers its cylinders or LOX system.</p>
+    </div>
+    <div class="o2 rv">
+      <div class="cyls" role="group" aria-label="Cylinder size" id="cyls"></div>
+      <div class="o2grid">
+        <div><label for="psi"><span>Pressure</span><output id="psiOut">2000 psi</output></label><input id="psi" type="range" min="200" max="2200" step="50" value="2000"></div>
+        <div><label for="flow"><span>Flow</span><output id="flowOut">10 L/min</output></label><input id="flow" type="range" min="1" max="25" step="1" value="10"></div>
+        <div><label for="mission"><span>Whole mission</span><output id="missionOut">60 min</output></label><input id="mission" type="range" min="10" max="240" step="5" value="60"></div>
+      </div>
+      <div class="o2out" aria-live="polite">
+        <div class="big" id="minsOut">50<small>min of oxygen</small></div>
+        <div class="bar" aria-hidden="true"><i id="barFill"></i><em id="barMark"></em></div>
+        <div class="barkey" aria-hidden="true"><span>Oxygen available</span><span>│ Mission length</span></div>
+        <p class="o2msg" id="o2msg"></p>
+      </div>
+      <p class="fine">Planning arithmetic: (pressure − 200 psi change point) × cylinder factor ÷ flow. Factors: D 0.16, E 0.28, M 1.56, H/K 3.14 L/psi. Check the cylinder’s label and your program’s oxygen policy and reserve.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MANUALS ============ -->
+<section class="band paper2" id="manuals" aria-labelledby="mTitle">
+  <div class="wrap">
+    <div class="rv">
+      <p class="eyebrow">Device manuals</p>
+      <h2 class="h2" id="mTitle">The manufacturer’s guide,<br>one search away.</h2>
+      <p class="sub">Programs bring in the manuals and quick guides for the devices they fly with. Hiero reads them on the phone, so the crew can search an alarm or a setup step and open the right page, offline.</p>
+    </div>
+    <label class="mansearch rv" for="manq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 20 20"/></svg><input id="manq" type="search" placeholder="Filter guides: try “pump”, “nitric” or “vent”" autocomplete="off" aria-label="Filter device guides"></label>
+    <div class="manuals rv" id="manGrid" role="group" aria-label="Device guide library"></div>
+    <div class="mandetail" id="manDetail" aria-live="polite"></div>
+    <ol class="steps4">
+      <li class="rv"><b>Add the guide</b>Download it from the manufacturer or add the PDF the program already has.</li>
+      <li class="rv"><b>Read on the phone</b>Text and scanned pages are indexed on the device.</li>
+      <li class="rv"><b>Program review</b>The program decides which guides its crews see.</li>
+      <li class="rv"><b>Search offline</b>Alarms and setup steps open at the right page.</li>
+    </ol>
+    <p class="fine rv">Device names belong to their manufacturers. Hiero shows the guides a program provides; it does not write or alter them.</p>
+  </div>
+</section>
+
+<!-- ============ HOME SCREEN ============ -->
+<section class="band" aria-labelledby="eTitle">
+  <div class="wrap">
+    <div class="rv">
+      <p class="eyebrow">On the home screen</p>
+      <h2 class="h2" id="eTitle">Everything the shift needs,<br>arranged the way your crew works.</h2>
+      <p class="sub">Crews rearrange the home screen and pin favorites, so the tools they open most are one tap away.</p>
+    </div>
+    <div class="tiles">
+      <div class="tile rv"><span class="ic" style="background:var(--code)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/><path d="M7 12h3l1-2 2 4 1-2h3"/></svg></span><b>Code companion</b><small>Adult, pediatric and neonatal timers and checklists</small></div>
+      <div class="tile rv"><span class="ic" style="background:var(--vent)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 4v7M8 11c-3 0-4 3-4 6 0 2 1 3 3 3s3-2 3-4v-5M16 11c3 0 4 3 4 6 0 2-1 3-3 3s-3-2-3-4v-5"/></svg></span><b>Ventilator</b><small>Settings, blood gases and mechanics</small></div>
+      <div class="tile rv"><span class="ic" style="background:var(--calc)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h2M14 12h2M8 16h2M14 16h2"/></svg></span><b>Calculators</b><small>Infusions, burns and bedside math</small></div>
+      <div class="tile rv"><span class="ic" style="background:#30A46C"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M9 12l2 2 4-4"/></svg></span><b>Skills</b><small>Procedures and checklists</small></div>
+      <div class="tile rv"><span class="ic" style="background:var(--ino)">NO</span><b>Nitric oxide</b><small>Delivery system setup and cylinder planning</small></div>
+      <div class="tile rv"><span class="ic" style="background:var(--mcs)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.5"/></svg></span><b>MCS</b><small>Mechanical circulatory support references</small></div>
+      <div class="tile rv"><span class="ic" style="background:#D6409F">℞</span><b>Formulary</b><small>Your program’s formulary and concentrations</small></div>
+      <div class="tile rv"><span class="ic" style="background:#0E9384"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8h13l-3-3M20 16H7l3 3"/></svg></span><b>Dispatch</b><small>The transfer, from referral to handoff</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LIMITS ============ -->
+<section class="band dark" id="limits" aria-labelledby="lTitle">
+  <div class="wrap">
+    <div class="rv">
+      <p class="eyebrow">What Hiero is not</p>
+      <h2 class="h2" id="lTitle">It shows the protocol.<br>It does not become one.</h2>
+    </div>
+    <div class="limits">
+      <div class="limit rv"><b>Not a replacement for medical direction</b><p>Hiero does not replace the medical director’s protocol. It shows that protocol, as written, and points back to the page it came from.</p></div>
+      <div class="limit rv"><b>Not a decision-maker</b><p>Hiero does not choose a destination, a launch, a landing or a dose. Those decisions stay with the crew, the pilot and medical direction.</p></div>
+      <div class="limit rv"><b>Not a medical device</b><p>Hiero is not a medical device, and nothing on this page is a claim of HIPAA compliance.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="band" id="faq" aria-labelledby="qTitle">
+  <div class="wrap">
+    <div class="rv"><p class="eyebrow">Questions</p><h2 class="h2" id="qTitle">Asked by crews and medical directors.</h2></div>
+    <div class="faq rv">
+      <details><summary>Does Hiero work without a signal?</summary><div class="ans">Yes. The program’s protocols, dosing, references, oxygen planner, hospital list and the device guides a program adds are stored on the phone. Live layers such as Flight Ops weather and traffic need a connection.</div></details>
+      <details><summary>Who controls the clinical content?</summary><div class="ans">The program. Hiero shows the guidelines the program loads and activates. A new or changed protocol does not reach crews until the program has reviewed it, and each page shows its revision.</div></details>
+      <details><summary>Does Hiero invent doses or fill gaps in a protocol?</summary><div class="ans">No. Hiero calculates only from doses written in the program’s protocol and applies that protocol’s maximums. If the protocol is silent, Hiero says the program has no matching text.</div></details>
+      <details><summary>What patient information does a crew enter?</summary><div class="ans">Age, weight and height drive the arithmetic. Hiero is built so crews do not need to enter names or other identifiers to use it.</div></details>
+      <details><summary>Which phones does it run on?</summary><div class="ans">Android and iPhone, with the same program content on both.</div></details>
+      <details><summary>How does a program get started?</summary><div class="ans">Write to us at <a href="mailto:hello@hieroclinical.com">hello@hieroclinical.com</a>. Tell us how your crews use your protocols today and which devices you fly with.</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="band contact" id="contact" aria-labelledby="cTitle">
+  <div class="wrap rv">
+    <p class="eyebrow">Contact</p>
+    <h2 class="h2" id="cTitle">Bring your protocols.<br>We’ll show you Hiero with them.</h2>
+    <p class="sub">If you run a transport program or direct one, write to us.</p>
+    <a class="btn primary" href="mailto:hello@hieroclinical.com">hello@hieroclinical.com</a>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap"><span class="name">Hiero Clinical</span><a href="mailto:hello@hieroclinical.com">hello@hieroclinical.com</a><span>© 2026</span></div></footer>
+
+<script>
+(function () {
+  'use strict';
+  var root = document.documentElement;
+  var still = false;
+  try { still = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+  var $ = function (s, c) { return (c || document).querySelector(s); };
+  var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+  var hasIO = 'IntersectionObserver' in window;
+
+  /* ---- sections rise 8px as they enter, once ---- */
+  var rvs = $$('.rv');
+  if (still || !hasIO) rvs.forEach(function (e) { e.classList.add('in'); });
+  else {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -6% 0px', threshold: 0.06 });
+    rvs.forEach(function (e) { io.observe(e); });
+  }
+
+  /* ---- nav dropdown + mobile menu ---- */
+  var menu = $('#featMenu'), featBtn = $('#featBtn'), burger = $('#burger');
+  function setMenu(open, btn) {
+    menu.classList.toggle('open', open);
+    featBtn.setAttribute('aria-expanded', String(open && btn === featBtn));
+    burger.setAttribute('aria-expanded', String(open && btn === burger));
+    burger.setAttribute('aria-label', open && btn === burger ? 'Close menu' : 'Open menu');
+  }
+  featBtn.addEventListener('click', function () { setMenu(!menu.classList.contains('open'), featBtn); });
+  burger.addEventListener('click', function () { setMenu(!menu.classList.contains('open'), burger); });
+  $$('a', menu).forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && menu.classList.contains('open')) { setMenu(false); featBtn.focus(); } });
+  document.addEventListener('click', function (e) { if (menu.classList.contains('open') && !e.target.closest('.nav')) setMenu(false); });
+
+  /* ---- hero phone: type a question, show the program's pages ---- */
+  var demos = [
+    { q: 'RSI 80 kg', r: [
+      { c: 'var(--air)', k: 'Protocol 2.2 · Airway', t: 'Drug-assisted airway', h: 'Doses for 80 kg, from the protocol text', p: 'Rev. as written · p. 7' },
+      { c: 'var(--proc)', k: 'Checklist', t: 'Pre-intubation checklist', p: 'Program checklist · 12 items' } ] },
+    { q: 'T1 high pressure alarm', r: [
+      { c: 'var(--vent)', k: 'Device guide · Ventilator', t: 'High pressure alarm', h: 'The program’s step-by-step checklist', p: 'Manufacturer guide p. 214' },
+      { c: 'var(--air)', k: 'Protocol 2.1 · Airway', t: 'Ventilated patient troubleshooting', p: 'DOPE and program vent settings' } ] },
+    { q: 'nearest burn center', r: [
+      { c: 'var(--mcs)', k: 'Hospitals · offline', t: 'Burn-designated hospitals', h: 'Sorted by distance from your location', p: 'State-verified designations' },
+      { c: 'var(--card)', k: 'Protocol 5.3 · Trauma', t: 'Burns', p: 'Fluid and TBSA calculator from the protocol' } ] }
+  ];
+  var typed = $('#typed'), results = $('#results');
+  function cardHTML(x) {
+    return '<div class="res"><span class="k"><i style="background:' + x.c + '"></i>' + x.k + '</span><b>' + x.t + '</b>' +
+      (x.h ? '<div class="hl">' + x.h + '</div>' : '') + '<p>' + x.p + '</p></div>';
+  }
+  if (still) {
+    typed.textContent = demos[0].q; results.innerHTML = demos[0].r.map(cardHTML).join('');
+  } else {
+    var di = 0, visible = true, timer = null;
+    if (hasIO) new IntersectionObserver(function (es) { visible = es[0].isIntersecting; if (visible && !timer) run(); }).observe($('.phone'));
+    var run = function () {
+      if (!visible || document.hidden) { timer = null; return; }
+      var d = demos[di % demos.length], i = 0;
+      results.innerHTML = ''; typed.textContent = '';
+      (function type() {
+        if (i <= d.q.length) { typed.textContent = d.q.slice(0, i++); timer = setTimeout(type, 65 + Math.random() * 55); return; }
+        results.innerHTML = d.r.map(cardHTML).join('');
+        $$('.res', results).forEach(function (e, n) { setTimeout(function () { e.classList.add('in'); }, 120 + n * 160); });
+        di++; timer = setTimeout(run, 3600);
+      })();
+    };
+    document.addEventListener('visibilitychange', function () { if (!document.hidden && !timer) run(); });
+    run();
+  }
+
+  /* ---- dosing illustration ---- */
+  var wt = $('#wt'), card = $('#doseCard');
+  function fmt(n) { return String(Math.round(n * 100) / 100); }
+  function dose() {
+    var w = +wt.value, raw = 0.1 * w, capped = Math.min(raw, 5);
+    $('#wtOut').textContent = w + ' kg';
+    $('#doseOut').textContent = fmt(capped) + ' mg';
+    $('#doseHow').textContent = '0.1 mg/kg × ' + w + ' kg = ' + fmt(raw) + ' mg' + (raw > 5 ? ', capped at the protocol maximum' : '');
+    $('#capNote').classList.toggle('on', raw > 5);
+  }
+  wt.addEventListener('input', dose);
+  $$('.seg button', card).forEach(function (b) {
+    b.addEventListener('click', function () {
+      var ped = b.dataset.pop === 'ped';
+      $$('.seg button', card).forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+      card.classList.toggle('ped', ped);
+      wt.value = ped ? 18 : 80; dose();
+    });
+  });
+  dose();
+
+  /* ---- smart-feature tabs ---- */
+  var tabs = $$('[role=tab]'), flowT = null;
+  function stepFlow() {
+    var steps = $$('#setupFlow .step'); clearTimeout(flowT);
+    if (still) { steps.forEach(function (s) { s.classList.add('on'); }); return; }
+    steps.forEach(function (s, i) { s.classList.toggle('on', i === 0); });
+    var k = 1; (function next() { if (k < steps.length) { steps[k++].classList.add('on'); flowT = setTimeout(next, 650); } })();
+  }
+  function select(t) {
+    tabs.forEach(function (x) {
+      var on = x === t; x.setAttribute('aria-selected', String(on)); x.tabIndex = on ? 0 : -1;
+      document.getElementById(x.getAttribute('aria-controls')).hidden = !on;
+    });
+    if (t.id === 't-set') stepFlow();
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { select(t); });
+    t.addEventListener('keydown', function (e) {
+      var n = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (n) { e.preventDefault(); var nt = tabs[(i + n + tabs.length) % tabs.length]; nt.focus(); select(nt); }
+    });
+  });
+
+  /* ---- Flight Ops map ---- */
+  var NS = 'http://www.w3.org/2000/svg', trafficG = $('#traffic');
+  var planes = [{ x: 60, y: 40, a: 125, s: .3, id: 'MED7' }, { x: 340, y: 270, a: 300, s: .22, id: 'N42LF' }, { x: 20, y: 175, a: 80, s: .38, id: 'AAL12' }];
+  planes.forEach(function (p) {
+    var g = document.createElementNS(NS, 'g'), body = document.createElementNS(NS, 'path'), tx = document.createElementNS(NS, 'text');
+    body.setAttribute('d', 'M0-6 L4 5 L0 3 L-4 5Z'); body.setAttribute('fill', '#E8EFF3');
+    tx.setAttribute('x', '8'); tx.setAttribute('y', '3'); tx.setAttribute('fill', '#93A8B6'); tx.setAttribute('font-size', '8');
+    tx.setAttribute('font-family', 'system-ui,sans-serif'); tx.setAttribute('font-weight', '700'); tx.textContent = p.id;
+    g.appendChild(body); g.appendChild(tx); trafficG.appendChild(g); p.g = g; p.b = body;
+  });
+  function place(p) { p.g.setAttribute('transform', 'translate(' + p.x.toFixed(1) + ' ' + p.y.toFixed(1) + ')'); p.b.setAttribute('transform', 'rotate(' + p.a + ')'); }
+  planes.forEach(place);
+  var mapOn = false;
+  function tick() {
+    if (!mapOn) return;
+    planes.forEach(function (p) {
+      var r = (p.a - 90) * Math.PI / 180; p.x += Math.cos(r) * p.s; p.y += Math.sin(r) * p.s;
+      if (p.x < -20) p.x = 420; else if (p.x > 420) p.x = -20;
+      if (p.y < -20) p.y = 330; else if (p.y > 330) p.y = -20;
+      place(p);
+    });
+    requestAnimationFrame(tick);
+  }
+  var mapSvg = $('#map svg');
+  if (still || !hasIO) { try { mapSvg.pauseAnimations(); } catch (e) {} }
+  else new IntersectionObserver(function (es) {
+    var was = mapOn; mapOn = es[0].isIntersecting;
+    try { mapOn ? mapSvg.unpauseAnimations() : mapSvg.pauseAnimations(); } catch (e) {}
+    if (mapOn && !was) requestAnimationFrame(tick);
+  }).observe($('#map'));
+  $$('.toggle').forEach(function (t) {
+    t.addEventListener('click', function () {
+      var on = t.getAttribute('aria-pressed') !== 'true';
+      t.setAttribute('aria-pressed', String(on));
+      $('[data-layer="' + t.dataset.t + '"]').classList.toggle('off', !on);
+    });
+  });
+
+  /* ---- oxygen planner (same arithmetic and factors as the app) ---- */
+  var CYL = { D: { f: .16, n: '≈ 350 L', h: 46 }, E: { f: .28, n: '≈ 625 L', h: 56 }, M: { f: 1.56, n: '≈ 3,450 L', h: 66 }, H: { f: 3.14, n: '≈ 6,900 L', h: 72 } };
+  var cur = 'E', cylBox = $('#cyls');
+  cylBox.innerHTML = Object.keys(CYL).map(function (k) {
+    var c = CYL[k], y = 76 - c.h;
+    return '<button type="button" class="cyl" data-c="' + k + '" aria-pressed="' + (k === cur) + '"><svg viewBox="0 0 30 80" aria-hidden="true">' +
+      '<defs><clipPath id="cl' + k + '"><rect x="5" y="' + y + '" width="20" height="' + c.h + '" rx="9"/></clipPath></defs>' +
+      '<rect x="12" y="' + (y - 5) + '" width="6" height="7" rx="1.5" fill="#7A8791"/>' +
+      '<rect x="5" y="' + y + '" width="20" height="' + c.h + '" rx="9" fill="#E6EEE9" stroke="#3C9A6B" stroke-width="1.5"/>' +
+      '<rect class="gas" clip-path="url(#cl' + k + ')" x="5" y="' + y + '" width="20" height="' + c.h + '" fill="#18A058" opacity=".85" style="transform-box:fill-box;transform-origin:bottom;transition:transform .4s cubic-bezier(.2,.75,.2,1)"/>' +
+      '</svg><b>' + (k === 'H' ? 'H/K' : k) + '</b><small>' + c.n + '</small></button>';
+  }).join('');
+  $$('.cyl', cylBox).forEach(function (b) {
+    b.addEventListener('click', function () {
+      cur = b.dataset.c;
+      $$('.cyl', cylBox).forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+      o2();
+    });
+  });
+  function o2() {
+    var psi = +$('#psi').value, flow = +$('#flow').value, mission = +$('#mission').value;
+    var mins = Math.max(0, Math.floor((psi - 200) * CYL[cur].f / flow));
+    $('#psiOut').textContent = psi + ' psi'; $('#flowOut').textContent = flow + ' L/min'; $('#missionOut').textContent = mission + ' min';
+    $('#minsOut').innerHTML = mins + '<small>min of oxygen</small>';
+    var scale = Math.max(mins, mission) * 1.12 || 1;
+    $('#barFill').style.width = (mins / scale * 100) + '%';
+    $('#barFill').style.background = mins >= mission ? 'var(--proc)' : '#C2302A';
+    $('#barMark').style.left = (mission / scale * 100) + '%';
+    $$('.cyl', cylBox).forEach(function (b) { b.querySelector('.gas').style.transform = 'scaleY(' + (b.dataset.c === cur ? Math.max(.02, psi / 2200) : .9) + ')'; });
+    var m = $('#o2msg');
+    if (mins >= mission) { m.className = 'o2msg good'; m.textContent = 'Covers the ' + mission + '-minute mission with ' + (mins - mission) + ' minutes to spare, before your program’s reserve.'; }
+    else { m.className = 'o2msg short'; m.textContent = 'Short by ' + (mission - mins) + ' minutes. Add a cylinder, choose a larger one, or plan the flow again.'; }
+  }
+  ['psi', 'flow', 'mission'].forEach(function (id) { $('#' + id).addEventListener('input', o2); });
+  o2();
+
+  /* ---- device guide library ---- */
+  var MAN = [
+    { n: 'Hamilton T1', k: 'Ventilator', c: 'var(--vent)', a: 'T1', tags: 'vent ventilator alarm', hit: ['<mark>High pressure</mark> alarm: check the patient, the circuit and the airway before changing settings.', 'Operator’s manual · alarms'] },
+    { n: 'Hamilton H900', k: 'Humidifier', c: 'var(--vent)', a: 'H9', tags: 'vent humidifier', hit: ['<mark>Water level</mark> and chamber temperature checks at setup.', 'Instructions for use · setup'] },
+    { n: 'INOmax DSIR Plus', k: 'Nitric oxide', c: 'var(--ino)', a: 'NO', tags: 'nitric ino inhaled', hit: ['<mark>Cylinder change</mark> sequence with the transport regulator.', 'Pocket guide · cylinder change'] },
+    { n: 'Impella', k: 'Heart pump', c: 'var(--mcs)', a: 'Im', tags: 'pump mcs heart', hit: ['<mark>Suction</mark> alarm: the steps the guide lists, in order.', 'Instructions for use · alarms'] },
+    { n: 'Cardiosave IABP', k: 'Balloon pump', c: 'var(--card)', a: 'IA', tags: 'pump iabp balloon', hit: ['<mark>Trigger</mark> selection and timing during transport.', 'Operator’s manual · timing'] },
+    { n: 'HeartMate 3', k: 'LVAD', c: 'var(--mcs)', a: 'HM', tags: 'pump lvad mcs', hit: ['<mark>Low flow</mark> alarm and controller checks.', 'Clinician alarm guide'] },
+    { n: 'Aerogen', k: 'Nebulizer', c: 'var(--calc)', a: 'Ae', tags: 'vent nebulizer aerosol', hit: ['<mark>In-line placement</mark> in the ventilator circuit.', 'Instructions for use · placement'] },
+    { n: 'Program quick cards', k: 'Your program', c: 'var(--blue2)', a: 'QC', tags: 'program cards checklist', hit: ['<mark>Your program’s</mark> own one-page device cards, reviewed before release.', 'Added by your program'] }
+  ];
+  var grid = $('#manGrid'), detail = $('#manDetail'), sel = 0;
+  grid.innerHTML = MAN.map(function (m, i) {
+    return '<button type="button" class="man" data-i="' + i + '" aria-pressed="' + (i === 0) + '"><span class="dot" style="background:' + m.c + '">' + m.a + '</span><span><b>' + m.n + '</b><small>' + m.k + '</small></span></button>';
+  }).join('') + '<div class="manempty" id="manEmpty">No guide matches. A program can add any device it flies with.</div>';
+  function showMan(i) {
+    sel = i; var m = MAN[i];
+    $$('.man', grid).forEach(function (b) { b.setAttribute('aria-pressed', String(+b.dataset.i === i)); });
+    detail.innerHTML = '<h3>' + m.n + '</h3><div class="meta"><span class="ok">Indexed on this phone</span><span>Added by your program</span><span>Reviewed before release</span><span>Works offline</span></div>' +
+      '<div class="hit">' + m.hit[0] + '<small>' + m.hit[1] + ' · example search result</small></div>';
+    if (!still) { detail.style.animation = 'none'; void detail.offsetWidth; detail.style.animation = ''; }
+  }
+  $$('.man', grid).forEach(function (b) { b.addEventListener('click', function () { showMan(+b.dataset.i); }); });
+  $('#manq').addEventListener('input', function (e) {
+    var q = e.target.value.trim().toLowerCase(), shown = 0;
+    $$('.man', grid).forEach(function (b) {
+      var m = MAN[+b.dataset.i], ok = !q || (m.n + ' ' + m.k + ' ' + m.tags).toLowerCase().indexOf(q) >= 0;
+      b.classList.toggle('hide', !ok); if (ok) shown++;
+    });
+    $('#manEmpty').style.display = shown ? 'none' : 'block';
+    var first = $$('.man:not(.hide)', grid)[0]; if (first && +first.dataset.i !== sel) showMan(+first.dataset.i);
+  });
+  showMan(0);
+})();
+</script>
+</body>
+</html>

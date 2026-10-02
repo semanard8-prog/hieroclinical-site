@@ -304,13 +304,13 @@ input[type=range]{width:100%;margin:.7rem 0 0;accent-color:var(--blue);height:1.
 .contact .h2{color:#fff}.contact .sub{margin-left:auto;margin-right:auto}
 .contact .cform{margin:2rem auto 0;max-width:28rem;text-align:left;display:grid;gap:.85rem}
 .contact .cform label{display:grid;gap:.35rem;font:600 .88rem/1.3 var(--sans);color:var(--nightInk)}
-.contact .cform .opt{font-weight:400;color:var(--nightDim)}
 .contact .cform input,.contact .cform textarea{width:100%;margin:0;padding:.8rem .95rem;border:1px solid var(--rule);border-radius:14px;background:var(--paper);color:var(--ink);font:400 1rem/1.45 var(--sans)}
 .contact .cform textarea{resize:vertical;min-height:7.5rem}
 .contact .cform input:focus,.contact .cform textarea:focus{outline:2px solid var(--cyan);outline-offset:2px}
 .contact .cform .btn{justify-self:center;margin-top:.4rem;font-size:1.05rem;padding:1rem 1.5rem}
 .contact .cform .btn:disabled{opacity:.55;cursor:default;transform:none}
 .contact .cerr{margin:0;color:#F6C7C4;font-size:.95rem;line-height:1.45}
+.contact .cnote{margin:1rem auto 0;max-width:28rem;color:var(--nightDim);font-size:.92rem;line-height:1.45}
 .contact .cok{margin:2rem auto 0;max-width:28rem;font:600 1.15rem/1.45 var(--sans);color:#fff}
 footer{background:var(--night);color:var(--nightDim);border-top:1px solid rgba(255,255,255,.06);font-size:.88rem}
 footer .wrap{display:flex;flex-wrap:wrap;gap:.6rem 1.6rem;align-items:center;padding-top:1.6rem;padding-bottom:max(2rem,env(safe-area-inset-bottom))}
@@ -694,18 +694,20 @@ html.still .rv,html.still .res{opacity:1!important;transform:none!important}
 <!-- ============ CONTACT ============ -->
 <section class="band contact" id="contact" aria-labelledby="cTitle">
   <div class="wrap rv">
-    <p class="eyebrow">Contact</p>
-    <h2 class="h2" id="cTitle">Bring your protocols.<br>We’ll show you Hiero with them.</h2>
-    <p class="sub">If you run a transport program or direct one, write to us.</p>
+    <p class="eyebrow">Trial</p>
+    <h2 class="h2" id="cTitle">Request a free trial code</h2>
+    <p class="sub">Tell us who you are and how you’d use Hiero. Sending this form does not issue a code.</p>
     <form class="cform" id="contactForm" action="/api/contact" method="post">
       <label>Name<input name="name" type="text" autocomplete="name" required></label>
       <label>Work email<input name="email" type="email" autocomplete="email" inputmode="email" required></label>
-      <label>Program <span class="opt">(optional)</span><input name="program" type="text" autocomplete="organization"></label>
-      <label>Note<textarea name="note" rows="5" required></textarea></label>
+      <label>Role<input name="role" type="text" autocomplete="organization-title" required></label>
+      <label>Program or organization<input name="program" type="text" autocomplete="organization" required></label>
+      <label>Short use case<textarea name="use_case" rows="4" required></textarea></label>
       <p class="cerr" id="contactErr" role="alert" hidden>That didn’t send. Write hello@hieroclinical.com if it keeps failing.</p>
-      <button class="btn primary" type="submit">Submit</button>
+      <button class="btn primary" type="submit">Request a free trial code</button>
     </form>
-    <p class="cok" id="contactOk" hidden>Received. We’ll write you at the email you entered.</p>
+    <p class="cnote">One code per work email.</p>
+    <p class="cok" id="contactOk" hidden>Request received. We’ll write you at the email you entered. No code is issued until we reply.</p>
   </div>
 </section>
 </main>
@@ -950,11 +952,13 @@ html.still .rv,html.still .res{opacity:1!important;transform:none!important}
         headers: { 'Accept': 'application/json' },
         body: data
       }).then(function (res) {
-        var type = (res.headers.get('content-type') || '').toLowerCase();
-        if (!res.ok || type.indexOf('text/html') !== -1) throw new Error('fail');
-        var ok = $('#contactOk');
-        contactForm.remove();
-        ok.hidden = false;
+        return res.json().then(function (body) {
+          var good = body && typeof body === 'object' && (body.ok === true || body.success === true);
+          if (!res.ok || !good) throw new Error('fail');
+          var ok = $('#contactOk');
+          contactForm.remove();
+          ok.hidden = false;
+        });
       }).catch(function () {
         err.hidden = false;
         btn.disabled = false;

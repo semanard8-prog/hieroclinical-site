@@ -1,0 +1,22 @@
+name = "hieroclinical-site"
+main = "src/index.js"
+compatibility_date = "2026-10-02"
+workers_dev = true
+
+# Keep the existing production hostname. Do not add www: it does not resolve.
+[[routes]]
+pattern = "hieroclinical.com"
+custom_domain = true
+
+[assets]
+directory = "."
+binding = "ASSETS"
+run_worker_first = [ "/api/*" ]
+
+# Email Service send binding. From must be on a domain onboarded under
+# Email Sending. destination_address locks delivery to the routed inbox.
+# https://developers.cloudflare.com/email-service/configuration/send-bindings/
+[[send_email]]
+name = "EMAIL"
+destination_address = "hello@hieroclinical.com"
+allowed_sender_addresses = [ "noreply@hieroclinical.com" ]
